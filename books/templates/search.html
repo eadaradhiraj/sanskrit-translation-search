@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1 style="color: red;">Search Results</h1>
+
+<br><br>
+<ul>
+  {% for sent in sents %}
+    <li>{{ sent.0 | safe }}</li>
+    <li>{{ sent.1 | safe }}</li>
+    <li style="list-style-type: none;"><br></li>
+  {% empty %}
+  <p>No results found. Try again.</p>
+  {% endfor %}
+{% endblock %}
