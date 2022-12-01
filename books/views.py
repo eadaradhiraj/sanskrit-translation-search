@@ -1,7 +1,19 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Book
+from .models import Book, BiblicalVerse
 import re
+
+
+class BiblicalVerseList(LoginRequiredMixin, ListView):
+    model = BiblicalVerse
+    context_object_name = "verses"
+    template_name = "verse.html"
+
+    def get_queryset(self):
+
+        return BiblicalVerse.objects.filter(
+                verse_title__istartswith=self.request.GET.get("q")
+        ).order_by('verse_title').values()
 
 
 class SearchResultsList(LoginRequiredMixin, ListView):

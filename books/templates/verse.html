@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1 style="color: red;">Verses Results</h1>
+
+<br><br>
+<ul>
+  {% for verse in verses %}
+    <li>{{ verse.verse_title | safe }} = {{ verse.verse_txt | safe }}</li>
+    <li style="list-style-type: none;"><br></li>
+  {% empty %}
+  <p>No results found. Try again.</p>
+  {% endfor %}
+{% endblock %}

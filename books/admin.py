@@ -4,4 +4,3 @@ from .models import Book, BiblicalVerse
 
 admin.site.register(Book)
 admin.site.register(BiblicalVerse)
-

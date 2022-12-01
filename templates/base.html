@@ -9,16 +9,27 @@
 <body>
   <main>
     <div class="container">
-      {% if user.is_authenticated %}
-        Hi {{ user.username }}!
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-        <form action="{% url 'search_results' %}" method="get">
-          <input type="search" name="q" placeholder="Search by name or quote..." class="form-control">
-        </form>
-      {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
-      {% endif %}
+      {% with '/verses/ /books/verse/' as verse_url_list %}
+        {% if request.path  in verse_url_list.split %}
+        <p><a href="{% url 'home' %}">Home</a></p>
+        {% else %}
+        <p><a href="{% url 'verses' %}">Verses</a></p>
+        {% endif %}
+        {% if user.is_authenticated %}
+          Hi {{ user.username }}!
+          <p><a href="{% url 'logout' %}">Log Out</a></p>
+          {% if request.path  in verse_url_list.split %}
+          <form action="{% url 'verse_results' %}" method="get">
+          {% else %}
+          <form action="{% url 'search_results' %}" method="get">
+          {% endif %}
+            <input type="search" name="q" placeholder="Search by name or quote..." class="form-control">
+          </form>
+        {% else %}
+          <p>You are not logged in</p>
+          <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+      {% endwith %}
       {% block content %}
       {% endblock %}
     </div>

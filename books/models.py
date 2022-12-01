@@ -13,20 +13,18 @@ class Book(models.Model):
     #         GinIndex(fields=["book"]),
     #     ]
 
+
 class BiblicalVerse(models.Model):
-    book = models.CharField(max_length=20)
+    verse_title = models.CharField(max_length=20)
     verse_txt = models.TextField()
-    chapter = models.IntegerField()
-    verse_num = models.IntegerField()
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['book', 'chapter', 'verse_num'],
+                fields=['verse_title'],
                 name='unique_verse'
             )
         ]
 
     def __str__(self):
-        return f"{self.book} {self.chapter}:{self.verse_num}"
-
+        return f"{self.verse_title}"
